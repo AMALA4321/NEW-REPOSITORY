@@ -17,14 +17,6 @@ import pandas as pd
 import random
 import math
 
-# ACCOUNT NO:s, MAIL IDs AND CUSTOMER IDs ARE DECLARED AS GLOBAL VARIABLES TO ENSURE NO DUPLICATES GET STORED IN THE DATA FILE
-global account_numbers
-global mail_ids
-global cif_ids
-account_numbers = []
-mail_ids = []
-cif_ids = []
-
 # A CLASS Account IS CREATED
 class Account :
     cif_id = ""
@@ -115,7 +107,6 @@ def display_menu(num) :
 
 # SIGNUP AND OPENS NEW ACCOUNT FOR NEW CUSTOMER             
 def signup():
-    global mail_ids
     account = Account()
     account.email_id = check_mail_id()
     flag = 0
@@ -143,18 +134,13 @@ def signup():
            
 # CHECK IF MAIL ID ENTERED IS CORRECT
 def check_mail_id() :
-    global mail_ids
     mail_id = input("Enter your mail id: ")
-    if mail_id not in mail_ids:
-        if '@' in mail_id  and '.com' in mail_id :
-           mail_ids.append(mail_id)
-           return mail_id
-        else:
+    if '@' in mail_id  and '.com' in mail_id :
+            return mail_id
+    else:
             print("Enter valid email id ")
             check_mail_id()
-    else :
-        print("Mail id already exists. Enter new mail id to sign up")
-        check_mail_id()
+    
 
 # CHECK IF CORRECT ACCOUNT TYPE ENTERED
 def check_account_type() :
@@ -322,30 +308,16 @@ def new_deposit(num) :
 
 # TO GENERATE RANDOM ACCOUNT NUMBER   
 def generate_account_no() :
-    global account_numbers
     random_num = random.randint(0, 1000)
     account_num = 100000 + random_num
-    flag = 0
-    if account_num not in account_numbers:
-          account_numbers.append(account_num)
-          flag = 1
-          return account_num
-    if flag == 0:
-         generate_account_no()
+    return account_num
 
 # TO GENERATE RANDOM CUSTOMER ID
 def generate_cif_id() :
-    global cif_ids
     random_num = random.randint(0, 1000)
     cif_id = 200000 + random_num
-    flag = 0
-    if cif_id not in cif_ids:
-          flag = 1
-          cif_ids.append(cif_id)
-          return cif_id
-    if flag == 0:
-        generate_cif_id() 
-
+    return cif_id
+    
 # TO DO FUND TRANSFERS
 def transfers(num1,num2):
    file = pathlib.Path("accounts.data")
@@ -482,13 +454,14 @@ def modifyAccount(num):
                    select = input()
                    if select == '1':
                        item.name = input("Account Holder Name to be modified as : ")
-                   if select == '2':
+                   elif select == '2':
                        item.address = input("Account holder's address to be modified as : ")
-                   if select == '3':
+                   elif select == '3':
                        item.phone_no = input("Enter new phone number : ")
-                   if select == '4':
+                   elif select == '4':
                        item.email_id = input("Enter new email id :")
-                         
+                   else :
+                       print("Invalid selection")                         
            outfile = open('newaccounts.data','wb')
            pickle.dump(oldlist, outfile)
            outfile.close()
@@ -532,9 +505,9 @@ def pwd_checker(num) :
                     else :
                         print("Wrong password entered!!! Retry")
        return flag
-'''    
+
 # ADMIN PURPOSE - TO TEST THE PROGRAM
- def list_all_account() :
+def list_all_account() :
                
    file = pathlib.Path("accounts.data")
    if file.exists() :
@@ -551,7 +524,7 @@ def pwd_checker(num) :
                print(f"Interest type: {item.int_type} interest_rate {item.interest_rate} Maturity_amount {item.maturity_amount} Period {item.period}")
    else :
        print("No records to Search")
-'''
+
 
 # TO CHECK IF PARTICULAR ACCOUNT EXISTS IN DATA FILE   
 def check_if_account_exists(num) :
@@ -583,7 +556,4 @@ elif selection == '2':
     signup()
     print("Thanks for opening account with us .Looking forward for a wonderful experience with us ")
 
-# list_all_account()
-# print(account_numbers)
-# print(mail_ids)
-# print(cif_ids)
+list_all_account()
