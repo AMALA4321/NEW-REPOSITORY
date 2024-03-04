@@ -8,7 +8,6 @@
 # 7. SIGNUP AND LOGIN
 # 8. CLOSE EXISTING DEPOSIT
 
-
 import pickle # TO SERIALIZE AND DE-SERIALIZE PYTHON OBJECT
 import os # TO INTERACT WITH OS ,MANAGEMENT OF FILES AND DIRECTORIES
 import pathlib # FOR HANDLING FILES AND PATHS ON YOUR OS
@@ -18,7 +17,7 @@ import pandas as pd
 import random
 import math
 
-# ACCOUNT NO:s, MAIL IDs AND CUSTOMER IDs ARE DECLARED AS GLOBAL VARIABLES TO ENSURE NO DUPLICATES GET STORED IN THE DATABASE
+# ACCOUNT NO:s, MAIL IDs AND CUSTOMER IDs ARE DECLARED AS GLOBAL VARIABLES TO ENSURE NO DUPLICATES GET STORED IN THE DATA FILE
 global account_numbers
 global mail_ids
 global cif_ids
@@ -47,11 +46,9 @@ class Account :
     maturity_amount = 0
     period = 0
 
-
 #******************************************************************************   
 #******************************************************************************
 # WELCOME SCREEN   
-    
 def intro():
    print("\t\t\t\t**********************")
    print("\t\t\t\t\tWELCOME")
@@ -72,7 +69,6 @@ def intro():
        intro()
 
 # FUNCTION TO DISPLAY MENU AND CALL APPROPRIATE FUNCTIONS BASED ON USER INPUT
-       
 def display_menu(num) :
     ch = 0
     while ch != 8 :
@@ -117,8 +113,7 @@ def display_menu(num) :
            else :
                print("Invalid choice")  
 
-# SIGNUP AND OPENS NEW ACCOUNT FOR NEW CUSTOMER
-               
+# SIGNUP AND OPENS NEW ACCOUNT FOR NEW CUSTOMER             
 def signup():
     global mail_ids
     account = Account()
@@ -145,8 +140,7 @@ def signup():
         writeAccountsFile(account)
     else:
         print("passwords do not match! Try again")
-        
-    
+           
 # CHECK IF MAIL ID ENTERED IS CORRECT
 def check_mail_id() :
     global mail_ids
@@ -181,7 +175,6 @@ def check_phone_no() :
         print(" phone number to be 10 digits long and contains only digits .Try again")
         check_phone_no()
 
-
 # CHECK IF INITIAL AMOUNT ENTERED IS AS PER REQUIREMENT     
 def check_initial_amount() :
     initial_amount = float(input("Enter Initial deposit amount(>=10)"))
@@ -191,7 +184,6 @@ def check_initial_amount() :
         print("Initial amount should be greater than 10 .Try again") 
         check_initial_amount()
 
-    
 # CREATES PASSWORD FOR NEW USER
 def new_password_new_user():
         val = False
@@ -231,7 +223,6 @@ def writeAccount() :
     account.accNo = generate_account_no()
     print(f"\n\n\nAccount Created. Your account number is {account.accNo}")
     writeAccountsFile(account)
-
 
 # writing account details to data file
 def writeAccountsFile(account) :  
@@ -324,12 +315,10 @@ def new_deposit(num) :
     except ValueError:
          print("Oops!!!  Value Error!!!  Please enter numerical value")
          
-       
     outfile = open('newaccounts.data','wb')
     pickle.dump(oldlist, outfile)
     outfile.close()
     os.rename('newaccounts.data', 'accounts.data')
-
 
 # TO GENERATE RANDOM ACCOUNT NUMBER   
 def generate_account_no() :
@@ -356,18 +345,15 @@ def generate_cif_id() :
           return cif_id
     if flag == 0:
         generate_cif_id() 
-       
 
 # TO DO FUND TRANSFERS
 def transfers(num1,num2):
-   
    file = pathlib.Path("accounts.data")
    if file.exists ():
        infile = open('accounts.data','rb')
        mylist = pickle.load(infile)
        infile.close()
        os.remove('accounts.data')# DELETE THE FILE
-       
        try: 
          for item in mylist :
             if item.accNo == num1 :
@@ -410,9 +396,6 @@ def balance_inquiry(num) :
    if not found :
        print("No existing record with this number")
 
-
-
-
 #  TO DISPLAY ALL ACCOUNT DETAILS OF THE CUSTOMER
 def all_accounts(num) :
    file = pathlib.Path("accounts.data") #  FILE PATH OF FILE WITH NAME ACCOUNTS.DATA SAVED TO VARIABLE FILE
@@ -434,7 +417,6 @@ def all_accounts(num) :
 
 # TO CLOSE A DEPOSIT ACCOUNT AND TRANSFER PROCEEDS WITH INTEREST TILL DATE TO SAVINGS ACCOUNT
 def deleteAccount(num) :
-  
     file = pathlib.Path("accounts.data")
     if file.exists () :
         infile = open('accounts.data','rb')
@@ -483,9 +465,7 @@ def deleteAccount(num) :
         pickle.dump(newlist, outfile)
         outfile.close()
         os.rename('newaccounts.data', 'accounts.data')  
-        
-           
-   
+  
 #  MODIFY CUSTOMER DETAILS
 def modifyAccount(num):
        file = pathlib.Path("accounts.data")
@@ -554,8 +534,7 @@ def pwd_checker(num) :
        return flag
 '''    
 # ADMIN PURPOSE - TO TEST THE PROGRAM
-    
-def list_all_account() :
+ def list_all_account() :
                
    file = pathlib.Path("accounts.data")
    if file.exists() :
@@ -588,13 +567,8 @@ def check_if_account_exists(num) :
                   
        return flag
 
-
-
 #--------------------------------------------------------------------------------------
-# start of the program----------------------------------------------------------------
-
-# list_all_account()
-
+# main program----------------------------------------------------------------
 
 selection = intro()
 if selection == '1':
@@ -608,8 +582,6 @@ if selection == '1':
 elif selection == '2':
     signup()
     print("Thanks for opening account with us .Looking forward for a wonderful experience with us ")
-
-
 
 # list_all_account()
 # print(account_numbers)
