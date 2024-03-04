@@ -552,7 +552,7 @@ def pwd_checker(num) :
                     else :
                         print("Wrong password entered!!! Retry")
        return flag
-    
+'''    
 # ADMIN PURPOSE - TO TEST THE PROGRAM
     
 def list_all_account() :
@@ -572,7 +572,7 @@ def list_all_account() :
                print(f"Interest type: {item.int_type} interest_rate {item.interest_rate} Maturity_amount {item.maturity_amount} Period {item.period}")
    else :
        print("No records to Search")
-
+'''
 
 # TO CHECK IF PARTICULAR ACCOUNT EXISTS IN DATA FILE   
 def check_if_account_exists(num) :
@@ -593,9 +593,8 @@ def check_if_account_exists(num) :
 #--------------------------------------------------------------------------------------
 # start of the program----------------------------------------------------------------
 
-list_all_account()
-#num = 100394
-#check_if_account_exists(num)
+# list_all_account()
+
 
 selection = intro()
 if selection == '1':
@@ -612,7 +611,7 @@ elif selection == '2':
 
 
 
-list_all_account()
-print(account_numbers)
-print(mail_ids)
-print(cif_ids)
+# list_all_account()
+# print(account_numbers)
+# print(mail_ids)
+# print(cif_ids)
